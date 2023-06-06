@@ -14,17 +14,11 @@ Create .env file with the following environment Spotify developer infomation
 
 Also add the desired user name and ID
 
-    SPOTIFY_USER=""<br>
-    DISCOVER_WEEKLY_ID=""<br>
+    SPOTIFY_USER=""
+    DISCOVER_WEEKLY_ID=""
 
-## First use
-When firstly used it will prompt to ask for the auth token. 
-Might fail on first use due token synchronizations.
-Paste the opened URL (**to be improved adding the token in the env variables**)
-
-    Enter the URL you were redirected to: 
-
-## Following uses
-Call the program and will autostart. It will possibly fails due token expiration. In this case will be prompted.
+## Uses
+Call the program and will autostart the token auth.
+It will possibly fails due token expiration. In this case will be prompted.
 
     python main.py

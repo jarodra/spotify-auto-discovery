@@ -10,8 +10,8 @@ USER_ID = os.getenv("SPOTIFY_USER")
 DISCOVER_WEEKLY_ID = os.getenv("DISCOVER_WEEKLY_ID")
 
 # Authorization
-scope = "playlist-modify-public"
 try: 
+    scope = "playlist-modify-public"
     spotify = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
 except:
     print("Error during OAuth authorization")
