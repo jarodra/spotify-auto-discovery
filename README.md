@@ -2,8 +2,9 @@
 Small python application used for automaticaly records weekly discoveries using spotipy.
 
 ## Before starting
-Install the dependencies <br>
-`pip install -r requirements.txt`
+Install the dependencies
+
+    `pip install -r requirements.txt`
 
 Create .env file with the following environment Spotify developer infomation
 
@@ -17,6 +18,6 @@ Also add the desired user name and ID
     DISCOVER_WEEKLY_ID=""<br>
 
 When firstly used it will prompt to ask for the auth token. 
-Ppaste the opened URL (**to be improved adding the token in the env variables**)
+Paste the opened URL (**to be improved adding the token in the env variables**)
 
-    `Enter the URL you were redirected to: `
+    Enter the URL you were redirected to: 
