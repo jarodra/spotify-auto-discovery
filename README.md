@@ -18,8 +18,18 @@ Also add the desired user name and ID
     SPOTIFY_USER=""
     DISCOVER_WEEKLY_ID=""
 
-## Uses
-Call the program and will autostart the token auth.
-It will possibly fails due token expiration. In this case will be prompted.
+## First uses
+On the first time call the program and it will prompt a URI. 
+Copy, paste it, and paste it back to your terminal. It will create a .cache file with the access token, and it will refresh authomaticaly. 
+The following steps should be done after the .cache file has been created.
+
+# Following uses
+For single uses:
 
     python main.py
+
+For image deployment there's a Dockerfile with an alpine distribution.
+This Dockerfile has a cron job authomatized to run the python script once every Monday at 8:00.
+
+    docker build --tag spotify-auto-discovery .
+    docker run spotify-auto-discovery

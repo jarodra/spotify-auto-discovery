@@ -8,4 +8,3 @@ RUN pip3 install -r requirements.txt
 RUN echo "${CRON_SPEC} python3 ${PROJ_DIR}/main.py" >> ${PROJ_DIR}/crontab
 RUN crontab ${PROJ_DIR}/crontab
 CMD ["crond", "-f"]
-EXPOSE 8083
