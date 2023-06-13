@@ -37,8 +37,11 @@ It will create a .cache file with the access token, and it will refresh authomat
 The following steps should be done after the .cache file has been created.  
 
 # Following uses
-If you can to use the script in your local machine, just repeat the previous step.  
 
+## Manual uses
+If you can to use the script manually in your local machine, just repeat the previous step.  
+
+## Docker/Docker-compose with cron deployment
 For image deployment there's a Dockerfile with an alpine distribution implemented.  
 This Dockerfile has a cron job authomatized to run the python script once every Monday at 8:00.
 
@@ -46,3 +49,9 @@ This Dockerfile has a cron job authomatized to run the python script once every 
     docker run -d spotify-auto-discovery
 
 If you prefer to use Docker Compose just use `docker compose up -d` or `docker compose down`.  
+
+## Kubernetes cronjob deployment
+If you prefer to user a kubernetes clusters:
+
+    docker build -t spotify-auto-discovery-kubernetes -f Dockerfile-kubernetes .
+    kubectl apply -f cronjob.yaml
