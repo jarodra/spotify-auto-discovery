@@ -6,7 +6,8 @@ Currently is usable and several platforms are possible to be used
 - [x] Docker
 - [x] Docker-compose
 - [X] Kubernetes Cronjob
-
+- [X] Google Cloud Platform: Cloud Run + Cloud Scheduler
+  
 ### Clone the repository
 Clone the repository which the following command
 
@@ -62,3 +63,46 @@ If you prefer to user a kubernetes clusters:
 
     docker build -t spotify-auto-discovery-kubernetes -f Dockerfile-kubernetes .
     kubectl apply -f cronjob.yaml
+
+#### Cloud Deployment
+An option to deploy the app and not depend on your own resourses is to use a Cloud Provider as Google, AWS or Azure.
+Most of them have a free tier option that should be enough to cover the app requirements.
+
+In this particular case I will deploy it within Google Cloud Platform and use Cloud Run jobs.
+I will use Artifact Registry as Docker image registry.
+
+**DISCLAIMER:**
+In terms of security this is not the best case scenario as we will use the .cache and .env straigh into the container.
+Please be careful on the IAM and project visibility.
+It could be a nice idea to use env variables during the creation of the cloud run job, but I am not doing as this is a simple project to learn.
+
+Follow the next steps if you want to try it on your own:
+- Install [gcloud CLI](https://cloud.google.com/sdk/docs/install).
+- Authenticate with your GCP account:
+   `gcloud auth login`
+- Set your project:
+   `gcloud config set project PROJECT_ID`
+- Create the repository into Artifact Registry:
+    `gcloud artifacts repositories create REPOSITORY_NAME --repository-format=docker --location=LOCATION --async`
+- Adds the Docker credentials entry to Docker's configuration file:
+    `gcloud auth configure-docker REGION-docker.pkg.dev`
+- Build (with the Dockerfile-kubernetes manifest as it will implement the cron afterwards) or tag the image if you already created it.
+   - Build the image :
+        `docker build . -f Dockerfile-kubernetes -t LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE`
+   - Tag the existing image:
+        `docker tag SOURCE-IMAGE LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE`
+- Upload the image to Artifact Registry:
+    `docker push LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE`
+- Create the Cloud Run job:
+    `gcloud run jobs create JOB_NAME --image=LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE`
+- Get your project number:
+    `gcloud projects describe PROJECT_ID --format="value(projectNumber)"`
+- Create the Cloud Scheduler:
+    ```
+        gcloud scheduler jobs create http SCHEDULE_NAME \
+            --location SCHEDULER_REGION \
+            --schedule="0 8 * * 1" \
+            --uri="https://CLOUD_RUN_REGION-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/PROJECT_ID/jobs/CLOUD_RUN_JOB_NAME:run" \
+            --http-method POST \
+            --oauth-service-account-email PROJECT-NUMBER-compute@developer.gserviceaccount.com
+    ```
