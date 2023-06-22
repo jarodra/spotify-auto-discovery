@@ -79,24 +79,42 @@ It could be a nice idea to use env variables during the creation of the cloud ru
 Follow the next steps if you want to try it on your own:
 - Install [gcloud CLI](https://cloud.google.com/sdk/docs/install).
 - Authenticate with your GCP account:
-   `gcloud auth login`
+   ```
+     gcloud auth login
+   ```
 - Set your project:
-   `gcloud config set project PROJECT_ID`
+   ```
+     gcloud config set project PROJECT_ID
+   ```
 - Create the repository into Artifact Registry:
-    `gcloud artifacts repositories create REPOSITORY_NAME --repository-format=docker --location=LOCATION --async`
+   ```
+    gcloud artifacts repositories create REPOSITORY_NAME --repository-format=docker --location=LOCATION --async
+   ```
 - Adds the Docker credentials entry to Docker's configuration file:
-    `gcloud auth configure-docker REGION-docker.pkg.dev`
+   ```
+     gcloud auth configure-docker REGION-docker.pkg.dev
+   ``` 
 - Build (with the Dockerfile-kubernetes manifest as it will implement the cron afterwards) or tag the image if you already created it.
-   - Build the image :
-        `docker build . -f Dockerfile-kubernetes -t LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE`
+   - Build the image:
+       ```
+         docker build . -f Dockerfile-kubernetes -t LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE
+       ``` 
    - Tag the existing image:
-        `docker tag SOURCE-IMAGE LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE`
+       ```
+         docker tag SOURCE-IMAGE LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE
+       ``` 
 - Upload the image to Artifact Registry:
-    `docker push LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE`
+    ```
+      docker push LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE
+    ``` 
 - Create the Cloud Run job:
-    `gcloud run jobs create JOB_NAME --image=LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE`
+    ```
+      gcloud run jobs create JOB_NAME --image=LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE
+    ```
 - Get your project number:
-    `gcloud projects describe PROJECT_ID --format="value(projectNumber)"`
+    ```
+      gcloud projects describe PROJECT_ID --format="value(projectNumber)"
+    ``` 
 - Create the Cloud Scheduler:
     ```
         gcloud scheduler jobs create http SCHEDULE_NAME \
