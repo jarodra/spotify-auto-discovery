@@ -59,7 +59,7 @@ This Dockerfile has a cron job authomatized to run the python script once every 
 If you prefer to use Docker Compose just use `docker compose up -d` or `docker compose down`.  
 
 #### Kubernetes cronjob deployment
-If you prefer to user a kubernetes clusters:
+If you prefer to user a local kubernetes cluster:
 
     docker build -t spotify-auto-discovery-kubernetes -f Dockerfile-kubernetes .
     kubectl apply -f cronjob.yaml
@@ -75,6 +75,10 @@ I will use Artifact Registry as Docker image registry.
 In terms of security this is not the best case scenario as we will use the .cache and .env straigh into the container.
 Please be careful on the IAM and project visibility.
 It could be a nice idea to use env variables during the creation of the cloud run job, but I am not doing as this is a simple project to learn.
+
+Note: In order to be able to use the cloud scheduler tools can the manifest "Dockerfile-kubernetes" can be used instead the default one as it already has a local cron configured (the container will keep running instead).
+
+   docker build -t spotify-auto-discovery -f Dockerfile-kubernetes .
 
 Follow the next steps if you want to try it on your own:
 - Install [gcloud CLI](https://cloud.google.com/sdk/docs/install).
@@ -99,9 +103,9 @@ Follow the next steps if you want to try it on your own:
        ```
          docker build . -f Dockerfile-kubernetes -t LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE
        ``` 
-   - Tag the existing image:
+   - Or if you already build the image locally, tag the existing image:
        ```
-         docker tag SOURCE-IMAGE LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE
+         docker tag spotify-auto-discovery-kubernetes LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE
        ``` 
 - Upload the image to Artifact Registry:
     ```
