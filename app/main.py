@@ -25,8 +25,8 @@ except:
     print("Error when reading the playlist")
 
 # Create empty playlist
-new_playlist_name = time.strftime("discover-weekly-%Y-KW%U")
 try:
+    new_playlist_name = time.strftime("discover-weekly-%Y-KW%U")
     new_playlist = spotify.user_playlist_create(USER_ID, new_playlist_name)
     print(f"New playlist created \"{new_playlist_name}\"")
 except:
