@@ -22,12 +22,10 @@ jobs:
           "token_type": "Bearer", 
           "expires_in": 3600,
           "scope": "playlist-modify-public",
-          "expires_at": 1716450762,
+          "expires_at": ${{ secrets.EXPIRES_AT }},
           "refresh_token": "${{ secrets.REFRESH_TOKEN }}"
         }
         EOF
-    - name: Python version
-      run: python3 --version
     - name: Execute python script
       run: python3 main.py
       env: 
