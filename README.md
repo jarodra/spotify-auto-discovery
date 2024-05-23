@@ -37,7 +37,7 @@ In this .cache file there is the access_token (and expiration time expires_at) a
 ### Following uses
 #### GitHub actions CI
 An option to deploy the app in a Github runner machine and not depend on your own resourses is to use a Cloud Provider as Google, AWS or Azure.
-Define in the forked repository the following secrets (from the .env or from the .cache files).
+Define in the forked repository the following Github Secrets (get the data from the .env or from the .cache files).
 
 **.env (from Spotify Developer):**
 - DISCOVER_WEEKLY_ID
@@ -53,6 +53,7 @@ Define in the forked repository the following secrets (from the .env or from the
 
 #### Server
 If you already have a virtual machine or a local machine that is going to be running at the desired schedule and want to use it for this purpose you can!
+First install python and the package dependencies (you can even do the first manual page on that machine if you want).
 Just leave .cache and .env in your and use `crontab -e` add a new line like the following one, save and exit:
 
     0 8 * * 1 /usr/bin/python3 /path/to/my_script/main.py
