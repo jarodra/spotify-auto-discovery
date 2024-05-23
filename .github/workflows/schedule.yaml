@@ -13,7 +13,7 @@ jobs:
     - name: Repo checkout
       uses: actions/checkout@v4
     - name: Install dependencies
-      run: sudo pip install -r requirements.txt
+      run: pip3 install -r requirements.txt
     - name: Create .cache 
       run: | 
         cat <<EOF > .cache
