@@ -16,16 +16,30 @@ jobs:
       run: sudo pip install -r requirements.txt
     - name: Create .cache 
       run: | 
-        echo "{
+        cat <<EOF > .cache
+        {
           "access_token": "${{ secrets.ACCESS_TOKEN }}",
           "token_type": "Bearer", 
-          "expires_in": 3600, 
+          "expires_in": 3600,
           "scope": "playlist-modify-public",
           "expires_at": 1716450762,
           "refresh_token": "${{ secrets.REFRESH_TOKEN }}"
-        }" >> .cache
+        }
+        EOF
+        cat <<EOF > .cache2
+        {
+          "access_token": "123",
+          "token_type": "Bearer", 
+          "expires_in": 3600,
+          "scope": "playlist-modify-public",
+          "expires_at": 1716450762,
+          "refresh_token": "123"
+        }
+        EOF
     - name: List files
-      run: ls
+      run: ls -a
+    - name: Cat .cache2
+      run: cat .cache2
     - name: Execute python script
       run: python3 main.py
       env: 
