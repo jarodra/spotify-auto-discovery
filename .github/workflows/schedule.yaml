@@ -2,12 +2,14 @@ name: Github Scheduler
 
 on:
   workflow_dispatch:
-# on:
-#   schedule:
-#     - cron: '0 8 * * 1'
+  schedule:
+    - cron: '*/5 * * * *'
+    # '0 8 * * 1'
+
 
 jobs:
   test_schedule:
+    name: Run the application
     runs-on: ubuntu-latest
     steps:
     - name: Repo checkout
