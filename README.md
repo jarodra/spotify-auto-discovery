@@ -36,7 +36,7 @@ In this .cache file there is the access_token (and expiration time expires_at) a
 ### Following uses
 #### GitHub actions CI
 An option to deploy the app and not depend on your own resourses is to use a Cloud Provider as Google, AWS or Azure.
-Define in the forked repository the following secrets (from the .env or from the .cache files)
+Define in the forked repository the following secrets (from the .env or from the .cache files).
 
 **.env (from Spotify Developer):**
 - DISCOVER_WEEKLY_ID
