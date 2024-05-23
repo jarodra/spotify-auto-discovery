@@ -54,4 +54,4 @@ Define in the forked repository the following secrets (from the .env or from the
 #### Server
 Just leave .cache and .env in your and use `crontab -e` add a new line like the following one, save and exit:
 
-    ```0 8 * * 1 /usr/bin/python3 /path/to/my_script/main.py```
+    0 8 * * 1 /usr/bin/python3 /path/to/my_script/main.py
