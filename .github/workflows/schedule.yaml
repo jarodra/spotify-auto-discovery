@@ -3,9 +3,7 @@ name: Github Scheduler
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/5 * * * *'
-    # '0 8 * * 1'
-
+    - cron: '0 8 * * 1'
 
 jobs:
   test_schedule:
@@ -26,6 +24,8 @@ jobs:
           "expires_at": 1716450762,
           "refresh_token": "${{ secrets.REFRESH_TOKEN }}"
         }" >> .cache
+    - name: List files
+      run: ls
     - name: Execute python script
       run: python3 main.py
       env: 
