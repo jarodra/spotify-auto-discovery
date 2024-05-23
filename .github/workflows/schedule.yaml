@@ -1,7 +1,7 @@
-name: Github Scheduler
+name: Github Scheduler for Spotify list
 
 on:
-  workflow_dispatch:
+  # workflow_dispatch:
   schedule:
     - cron: '0 8 * * 1'
 
