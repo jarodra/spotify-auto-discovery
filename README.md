@@ -5,6 +5,7 @@ This branch allows the start up with GitHub Actions
 - [x] Manual
 - [x] GitHub actions 
 - [x] Docker (containers branch)
+- [x] Server (raspberry pi)
 
 ### Preparing up
 Fork the repository and clone it to your local environment.
@@ -49,3 +50,7 @@ Define in the forked repository the following secrets (from the .env or from the
 - ACCESS_TOKEN
 - REFRESH_TOKEN
 - EXPIRES_AT
+
+#### Server
+Just leave .cache and .env in your and use `crontab -e` add a new line like the following one:
+```0 8 * * 1 /usr/bin/python3 /path/to/my_script/main.py```
