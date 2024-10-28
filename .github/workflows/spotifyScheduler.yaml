@@ -4,9 +4,6 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '7 9 * * 1'
-  push:
-    branches:
-      - main
       
 jobs:
   save_playlist:
