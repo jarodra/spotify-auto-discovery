@@ -1,4 +1,7 @@
 # spotify-auto-discovery
+> [!WARNING]  
+> Currently code is not working due Spotify API related changes (Related issue: [ #19)](https://github.com/jarodra/spotify-auto-discovery/issues/19))
+
 Personal project to learn spotify api through python's spotipy library, authentications and different deployment applications. 
 
 This branch allows the start up with GitHub Actions
