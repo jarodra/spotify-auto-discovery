@@ -32,6 +32,9 @@ try:
     scope = "playlist-modify-public"
     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope, open_browser=False))
     sp_anon = spotipy.Spotify(auth_manager=SpotifyAnon())
+    message = "Auth completed"
+    print(message)
+    write_to_summary(f"**Step success:** {message}")
 except:
     message = "Error during OAuth authorization"
     write_to_summary(f"**Step failed:** {message}")
@@ -42,6 +45,8 @@ try:
     items = sp_anon.playlist_items(DISCOVER_WEEKLY_ID)["items"]
     tracks = [item["track"]["external_urls"]["spotify"] for item in items]
     message = "Spotify weekly read"
+    print(message)
+    write_to_summary(f"**Step success:** {message}")
 except:
     message = "Error when reading the playlist"
     print(message)
@@ -64,7 +69,9 @@ except:
 # Add tracks to the new playlist
 try:
     sp.playlist_add_items(new_playlist["id"], tracks, position=None)
-    print("Songs added to the new playlist")
+    message = "Songs added to the new playlist"
+    print(message)
+    write_to_summary(f"**Step success:** {message}")
 except:
     message = "Error when adding the songs to the playlist"
     print(message)
