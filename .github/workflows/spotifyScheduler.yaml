@@ -2,8 +2,8 @@ name: Github Scheduler for Spotify playlist
 
 on:
   workflow_dispatch:
-  # schedule:
-  #   - cron: '0 5 * * 1'
+  schedule:
+    - cron: '0 5 * * 1'
       
 jobs:
   save_playlist:
