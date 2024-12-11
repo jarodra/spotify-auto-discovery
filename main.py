@@ -3,6 +3,7 @@ from spotipy.oauth2 import SpotifyOAuth
 import os
 from dotenv import load_dotenv
 import time
+from spotipy_anon import SpotifyAnon
 
 # Function to write to GitHub Action summary
 def write_to_summary(message) :
@@ -29,7 +30,8 @@ write_to_summary(f"## Spotify weekly save")
 # Authorization
 try: 
     scope = "playlist-modify-public"
-    spotify = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope, open_browser=False))
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope, open_browser=False))
+    sp_anon = spotipy.Spotify(auth_manager=SpotifyAnon())
 except:
     message = "Error during OAuth authorization"
     write_to_summary(f"**Step failed:** {message}")
@@ -37,8 +39,7 @@ except:
     
 # Read user playlist
 try:
-    items = spotify.playlist_items(DISCOVER_WEEKLY_ID)
-    # items = spotify.playlist_items(DISCOVER_WEEKLY_ID)["items"]
+    items = sp_anon.playlist_items(DISCOVER_WEEKLY_ID)["items"]
     tracks = [item["track"]["external_urls"]["spotify"] for item in items]
     message = "Spotify weekly read"
 except:
@@ -50,7 +51,7 @@ except:
 # Create empty playlist
 try:
     new_playlist_name = time.strftime("discover-weekly-%Y-KW%U")
-    new_playlist = spotify.user_playlist_create(USER_ID, new_playlist_name)
+    new_playlist = sp.user_playlist_create(USER_ID, new_playlist_name)
     message = f"New playlist created {new_playlist_name}"
     print(message)
     write_to_summary(f"**Step success:** {message}")
@@ -62,7 +63,7 @@ except:
 
 # Add tracks to the new playlist
 try:
-    spotify.playlist_add_items(new_playlist["id"], tracks, position=None)
+    sp.playlist_add_items(new_playlist["id"], tracks, position=None)
     print("Songs added to the new playlist")
 except:
     message = "Error when adding the songs to the playlist"
