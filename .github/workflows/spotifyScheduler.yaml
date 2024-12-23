@@ -4,9 +4,13 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '0 5 * * 1'
+
       
 jobs:
   save_playlist:
+    permissions:
+      contents: read
+      pull-requests: write
     name: Run the application
     runs-on: ubuntu-latest
     steps:
