@@ -36,7 +36,7 @@ The following steps should be done after the .cache file has been created.
 In this .cache file there is the access_token (and expiration time expires_at) and refresh_token.
 
 ### Following uses
-#### GitHub actions CI
+#### GitHub actions
 An option to deploy the app in a Github runner machine and not depend on your own resourses is to use a Cloud Provider as Google, AWS or Azure.
 Define in the forked repository the following Github Secrets (get the data from the .env or from the .cache files).
 
