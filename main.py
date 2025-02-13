@@ -8,9 +8,8 @@ from spotipy_anon import SpotifyAnon
 # Function to write to GitHub Action summary
 def write_to_summary(message) :
     """Adds a job summary.
-
     Keyword arguments:
-    message - Message to be printed
+        message - Message to be printed
     """
     summary_file = os.getenv("GITHUB_STEP_SUMMARY")
     if summary_file:
@@ -33,8 +32,7 @@ def authenticate_spotify():
     except:
         message = "Error during OAuth authorization"
         write_to_summary(f"**Step failed:** {message}")
-        os._exit(1)
-    
+        
 # Read user playlist
 def read_playlist():
     global tracks
@@ -48,7 +46,6 @@ def read_playlist():
         message = "Error when reading the playlist"
         print(message)
         write_to_summary(f"**Step failed:** {message}")
-        os._exit(1)
     
 # Create empty playlist
 def create_playlist():
@@ -63,7 +60,6 @@ def create_playlist():
         message = "Error when creating the playlist"
         print(message)
         write_to_summary(f"**Step failed:** {message}")
-        os._exit(1)
 
 # Add tracks to the new playlist
 def add_tracks_to_playlist():
@@ -76,16 +72,19 @@ def add_tracks_to_playlist():
         message = "Error when adding the songs to the playlist"
         print(message)
     write_to_summary(f"**Step failed:** {message}")
-    os._exit(1)
 
 if __name__ == "__main__":
-    # Read environment variables
-    load_dotenv()
-    USER_ID = os.getenv("SPOTIFY_USER")
-    DISCOVER_WEEKLY_ID = os.getenv("DISCOVER_WEEKLY_ID")
-
-    write_to_summary(f"## Spotify weekly save")
-    authenticate_spotify()
-    read_playlist()
-    create_playlist()
-    add_tracks_to_playlist()
+    try:
+        # Read environment variables
+        load_dotenv()
+        USER_ID = os.getenv("SPOTIFY_USER")
+        DISCOVER_WEEKLY_ID = os.getenv("DISCOVER_WEEKLY_ID")
+        write_to_summary(f"## Spotify weekly save")
+        authenticate_spotify()
+        read_playlist()
+        create_playlist()
+        add_tracks_to_playlist()
+    except:
+        print("Workflow failed")
+        write_to_summary(f"## Workflow failed")
+        exit(1) 
