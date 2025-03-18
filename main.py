@@ -82,6 +82,7 @@ if __name__ == "__main__":
         read_playlist()
         create_playlist()
         add_tracks_to_playlist()
-    except:
+    except Exception as error:
         write_to_summary(f"## Workflow failed")
+        print("An error occurred:", type(error).__name__, "–", error)
         exit(1) 
