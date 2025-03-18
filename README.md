@@ -2,6 +2,9 @@
 
 Personal project to learn spotify api through python's spotipy library, authentications and different deployment applications. 
 
+As per lasts changes in Spotify API, all read actions on spotify owned lists had been disabled.
+A manual workflow had been defined to export in a file a full list with main artist and song name (exporter workflow).
+
 This branch allows the start up with GitHub Actions
 - [x] Manual
 - [x] GitHub actions 
